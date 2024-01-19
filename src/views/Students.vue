@@ -6,19 +6,19 @@
 <div class="container">
     <table>
       
-      <th>St.Code</th>
-      <th>Homework 1</th>
-      <th>Homework 2</th>
-      <th>Exam</th>
-      <th>Final Grade</th>
+      <th class="header">St.Code</th>
+      <th class="header">Homework 1</th>
+      <th class="header">Homework 2</th>
+      <th class="header">Exam</th>
+      <th class="header">Final Grade</th>
       
       <tr v-for="student in grades">
       
-      <td>{{ student.studentcode }}</td>
-      <td>{{ student.hw1 }}</td>
-      <td>{{ student.hw2 }}</td>
-      <td>{{ student.exam }}</td>
-      <td>{{ student.final }}</td>
+      <td class="data">{{ student.studentcode }}</td>
+      <td class="data">{{ student.hw1 }}</td>
+      <td class="data">{{ student.hw2 }}</td>
+      <td class="data">{{ student.exam }}</td>
+      <td class="data">{{ student.final }}</td>
       </tr>
     </table>
 </div>
@@ -57,5 +57,15 @@ table {
   margin-left:auto;
   margin-right:auto;
   background-color: rgba(128, 128, 128, 0.373);
+}
+
+.header {
+  background-color: rgba(99, 81, 153, 0.815);
+  padding: 10px;
+}
+
+.data {
+  background-color: rgba(67, 142, 176, 0.775);
+  padding: 10px;
 }
 </style>
