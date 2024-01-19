@@ -4,7 +4,23 @@
 
 
 <div class="container">
-    
+    <table>
+      
+      <th>St.Code</th>
+      <th>Homework 1</th>
+      <th>Homework 2</th>
+      <th>Exam</th>
+      <th>Final Grade</th>
+      
+      <tr v-for="student in grades">
+      
+      <td>{{ student.studentcode }}</td>
+      <td>{{ student.hw1 }}</td>
+      <td>{{ student.hw2 }}</td>
+      <td>{{ student.exam }}</td>
+      <td>{{ student.final }}</td>
+      </tr>
+    </table>
 </div>
 </div>
 </template>
@@ -35,5 +51,11 @@ export default {
 <style scoped>
 h1 {
   font-size: 20px;
+}
+
+table {
+  margin-left:auto;
+  margin-right:auto;
+  background-color: rgba(128, 128, 128, 0.373);
 }
 </style>
