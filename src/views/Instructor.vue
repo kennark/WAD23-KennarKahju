@@ -18,6 +18,7 @@
             <td><input @change="calculateGrade(grade)" name="hw2" type="number" id="hw2" required v-model="grade.hw2"></td>
             <td><input @change="calculateGrade(grade)" name="exam" type="number" id="exam" required v-model="grade.exam "></td>
             <td class="final">{{ grade.final }}</td>
+            <button @click="sendGrade(grade)" class="update">Update</button>
           </tr>
           </table>
     </div>
@@ -50,7 +51,29 @@ export default {
   },
     calculateGrade(grade) {
       grade.final = grade.hw1 + grade.hw2 + grade.exam;
-    }
+  },
+    sendGrade(grade) {
+      var data = {
+        id: grade.id,
+        hw1: grade.hw1,
+        hw2: grade.hw2,
+        exam: grade.exam,
+        final: grade.final,
+        studentcode: grade.studentcode,
+        studentname: grade.studentname,
+      };
+      console.log(data);
+      fetch("http://localhost:3000/api/grades/" + grade.id, {
+        method:"PUT",
+        headers: {
+                "Content-Type": "application/json",
+            },
+        body: JSON.stringify(data),
+      })
+      .then(() => location.assign("/"))
+      .catch((e) => console.log(e));
+      
+  },
   },
   mounted() {
     this.fetchRecords();
