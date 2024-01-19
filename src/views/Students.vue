@@ -18,7 +18,7 @@
       <td class="data">{{ student.hw1 }}</td>
       <td class="data">{{ student.hw2 }}</td>
       <td class="data">{{ student.exam }}</td>
-      <td class="data">{{ student.final }}</td>
+      <td :class="{'data': true, 'failed': student.exam <= 20 || student.final <= 20, 'passed': student.exam > 20 && student.final > 20}">{{ student.final }}</td>
       </tr>
     </table>
 </div>
@@ -68,4 +68,13 @@ table {
   background-color: rgba(67, 142, 176, 0.775);
   padding: 10px;
 }
+
+.failed {
+  background-color: red;
+}
+
+.passed {
+  background-color: green;
+}
+
 </style>
