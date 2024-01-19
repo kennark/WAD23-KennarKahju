@@ -14,10 +14,10 @@
           <tr class="item" v-for="grade in grades" :key="grade.id">
             <td><input name="studentcode" type="text" id="studentcode" required v-model="grade.studentcode"></td>
             <td><input name="studentname" type="text" id="studentname" required v-model="grade.studentname"></td>
-            <td><input name="hw1" type="number" id="hw1" required v-model="grade.hw1"></td>
-            <td><input name="hw2" type="number" id="hw2" required v-model="grade.hw2"></td>
-            <td><input name="exam" type="number" id="exam" required v-model="grade.exam "></td>
-            <td><input name="final" type="number" id="final" required v-model="grade.final "></td>
+            <td><input @change="calculateGrade(grade)" name="hw1" type="number" id="hw1" required v-model="grade.hw1"></td>
+            <td><input @change="calculateGrade(grade)" name="hw2" type="number" id="hw2" required v-model="grade.hw2"></td>
+            <td><input @change="calculateGrade(grade)" name="exam" type="number" id="exam" required v-model="grade.exam "></td>
+            <td class="final">{{ grade.final }}</td>
           </tr>
           </table>
     </div>
@@ -48,6 +48,9 @@ export default {
         .then((data) => (this.grades = data))
         .catch((err) => console.log(err.message));
   },
+    calculateGrade(grade) {
+      grade.final = grade.hw1 + grade.hw2 + grade.exam;
+    }
   },
   mounted() {
     this.fetchRecords();
@@ -76,5 +79,10 @@ h1 {
 input{
   width: 100px;
   text-align: center
+}
+
+.final {
+  background-color: goldenrod;
+  padding:5px;
 }
 </style>
