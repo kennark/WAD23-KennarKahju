@@ -18,9 +18,13 @@
       <td class="data">{{ student.hw1 }}</td>
       <td class="data">{{ student.hw2 }}</td>
       <td class="data">{{ student.exam }}</td>
-      <td :class="{'data': true, 'failed': student.exam <= 20 || student.final <= 20, 'passed': student.exam > 20 && student.final > 20}">{{ student.final }}</td>
+      <td :class="{'data': true, 'failed': student.exam <= 20 || student.final <= 20, 'passed': student.exam > 20 && student.final > 20}" @click="showJustification(student)">{{ student.final }}</td>
       </tr>
     </table>
+
+    <div class="justification" v-if="justification">
+      <strong>Grade justification:</strong> {{ justification }}
+    </div>
 </div>
 </div>
 </template>
@@ -31,6 +35,7 @@ export default {
   data() {
     return {
       grades: [],
+      justification: "",
     };
   },
   methods: {
@@ -39,6 +44,21 @@ export default {
         .then((response) => response.json())
         .then((data) => (this.grades = data))
         .catch((err) => console.log(err.message));
+  },
+    showJustification(student) {
+      if (student.final < 51 && student.exam < 21) {
+        this.justification =
+          "You failed because you need to get 21 points or more in the exam to pass the course and you also need to get 51 or more in the HWs and exam to pass the course.";
+      } else if (student.final > 51 && student.exam < 21) {
+        this.justification =
+          "You failed because you need to get 21 points or more in the exam to pass the course.";
+      } else if (student.final < 51 && student.exam > 21) {
+        this.justification =
+          "You failed because you need to get 51 points or more in the HWs and exam to pass the course.";
+      } else if (student.final > 51 && student.exam > 21) {
+        this.justification =
+          "You have passed because you got over 20 points in the exam and over 50 points in the HWs and exam.";
+    }
   },
   },
   mounted() {
@@ -51,6 +71,9 @@ export default {
 <style scoped>
 h1 {
   font-size: 20px;
+}
+.container {
+  background-color: lightgray;
 }
 
 table {
@@ -77,4 +100,9 @@ table {
   background-color: green;
 }
 
+.justification {
+    background-color: #6ac6db;
+    padding: 10px;
+    margin-top: 10px;
+  }
 </style>
